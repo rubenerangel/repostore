@@ -14,19 +14,7 @@ export class GitRepoInfoService {
   endpoint: string = 'https://api.github.com/users/rubenerangel/repos';
 
   constructor(public http: HttpClient) {
-    this.info$ = this.infoSubject.asObservable().pipe(
-      map((data: any) => {
-        let info: Infogit = {
-          id: data.id,
-          name: data.name,
-          full_name: data.full_name,
-          is_private: data.is_private,
-          created_at: data.created_at,
-        };
-
-        return info;
-      })
-    );
+    this.info$ = this.infoSubject.asObservable().pipe(map(this.structureData));
 
     this.get();
   }
@@ -35,5 +23,27 @@ export class GitRepoInfoService {
     let url = this.endpoint;
 
     this.http.get(url).subscribe(this.infoSubject);
+  }
+
+  structureData(data: any) {
+    let repos = {};
+    data.forEach((repository) => {
+      //console.log(repository, 'repository');
+      let id = repository.id;
+
+      let reposUser: Infogit = repos[id] || {
+        repos: {},
+      };
+
+      reposUser.id = repository.id;
+      reposUser.name = repository.name;
+      reposUser.full_name = repository.full_name;
+      reposUser.is_private = repository.private;
+      reposUser.created_at = repository.created_at;
+
+      repos[id] = reposUser;
+      // console.log(repos[id], 'repos[id]');
+    });
+    return Object.values(repos);
   }
 }
