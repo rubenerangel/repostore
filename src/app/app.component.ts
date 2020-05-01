@@ -12,6 +12,6 @@ export class AppComponent {
   constructor(private gitRepoInfoService: GitRepoInfoService) {}
 
   ngOnInit() {
-    this.gitRepoInfoService.info$.subscribe(console.log);
+    //this.gitRepoInfoService.info$.subscribe(console.log);
   }
 }

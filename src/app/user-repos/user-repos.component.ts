@@ -10,6 +10,6 @@ export class UserReposComponent implements OnInit {
   constructor(public gitInfoService: GitRepoInfoService) {}
 
   ngOnInit(): void {
-    this.gitInfoService.info$.subscribe(console.log);
+    //this.gitInfoService.info$.subscribe(console.log);
   }
 }
