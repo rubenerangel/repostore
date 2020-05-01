@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Full Name</th>
+      <th>Private</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let infoRepo of gitInfoService.info$ | async">
+      <td>{{infoRepo.id}}</td>
+      <td>{{infoRepo.name}}</td>
+      <td>{{infoRepo.full_name}}</td>
+      <td>{{infoRepo.is_private}}</td>
+      <td>{{infoRepo.created_at | date:"dd/MM/yy"}}</td>
+    </tr>
+  </tbody>
+</table>
